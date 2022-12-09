@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Final project</name>
+    </assembly>
+    <members>
+        <member name="T:Final_project.CsvImporter">
+            <summary>
+            class contains methods to read csv and store data in list based on number of columns
+            </summary>
+        </member>
+        <member name="M:Final_project.CsvImporter.ImportPayRecords(System.String)">
+            <summary>
+            method to read csv file line by line, compiles data based on ID number, returns list
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Final_project.CsvImporter.CreatePayRecord(System.Int32,System.Double[],System.Double[],System.String,System.String)">
+            <summary>
+            method to create object based on class of employee
+            </summary>
+            <param name="id"></param>
+            <param name="hours"></param>
+            <param name="rates"></param>
+            <param name="visa"></param>
+            <param name="yearToDate"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Final_project.PayRecord">
+            <summary>
+            parent class containing properties to store hours and rates, calculate gross, net and tax; constructor for each payRecord; method to write details to console
+            </summary>
+        </member>
+        <member name="F:Final_project.PayRecord._hours">
+            <summary>
+            array to store hours for each line in csv file
+            </summary>
+        </member>
+        <member name="F:Final_project.PayRecord._rates">
+            <summary>
+            array to store rates for each line in csv file
+            </summary>
+        </member>
+        <member name="P:Final_project.PayRecord.Id">
+            <summary>
+            property Id read from csv file
+            </summary>
+        </member>
+        <member name="P:Final_project.PayRecord.Gross">
+            <summary>
+            property of PayRecord parent class, calculates gross earnings from parallel arrays _hours and _rates
+            </summary>
+        </member>
+        <member name="P:Final_project.PayRecord.Net">
+            <summary>
+            property of PayRecord parent class, calculates net earnings
+            </summary>
+        </member>
+        <member name="P:Final_project.PayRecord.Tax">
+            <summary>
+            property tax, value is calculated from TaxCalculator class based on type of pay record (resident or whv)
+            </summary>
+        </member>
+        <member name="M:Final_project.PayRecord.#ctor(System.Int32,System.Double[],System.Double[])">
+            <summary>
+            constructor for PayRecord accepting id, hours, rates
+            </summary>
+            <param name="id"></param>
+            <param name="hours"></param>
+            <param name="rates"></param>
+        </member>
+        <member name="M:Final_project.PayRecord.GetDetails">
+            <summary>
+            method to write calculated amounts to console
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Final_project.PayRecordWriter">
+            <summary>
+            class contains method for writing to csv and console
+            </summary>
+        </member>
+        <member name="M:Final_project.PayRecordWriter.Write(System.String,System.Collections.Generic.List{Final_project.PayRecord},System.Boolean)">
+            <summary>
+            static method for writing calculated pay records to csv file and optionally console
+            </summary>
+            <param name="file"></param>
+            <param name="records"></param>
+            <param name="writeToConsole"></param>
+        </member>
+        <member name="M:Final_project.Program.Main(System.String[])">
+            <summary>
+            calls method for writing records to csv and console from PayRecordWriter
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="T:Final_project.ResidentPayRecord">
+            <summary>
+            child class from PayRecord, contains property Tax to calculate total tax paid
+            </summary>
+        </member>
+        <member name="P:Final_project.ResidentPayRecord.Tax">
+            <summary>
+            inherits from PayRecord, overrides abstract property Tax an calls appropriate method from TaxCalculator
+            </summary>
+        </member>
+        <member name="M:Final_project.ResidentPayRecord.#ctor(System.Int32,System.Double[],System.Double[])">
+            <summary>
+            constructor calls base constructor, id, hours, rates
+            </summary>
+            <param name="id"></param>
+            <param name="hours"></param>
+            <param name="rates"></param>
+        </member>
+        <member name="T:Final_project.TaxCalculator">
+            <summary>
+            class contains methods forcalculating tax based on class of employee
+            </summary>
+        </member>
+        <member name="M:Final_project.TaxCalculator.CalculateResidentialTax(System.Double)">
+            <summary>
+            method to calculate tax for residents, returns double
+            </summary>
+            <param name="gross"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Final_project.TaxCalculator.CalculateWorkingHolidayTax(System.Double,System.Double)">
+            <summary>
+            method to return tax for working holiday visa, returns double
+            </summary>
+            <param name="gross"></param>
+            <param name="yearToDate"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Final_project.WorkingHolidayPayRecord">
+            <summary>
+            child class of PayRecord, contains constructor and method to write details with additional parameters
+            </summary>
+        </member>
+        <member name="F:Final_project.WorkingHolidayPayRecord._visa">
+            <summary>
+            child class requires 2 additional properties, read from csv file
+            </summary>
+        </member>
+        <member name="P:Final_project.WorkingHolidayPayRecord.Visa">
+            <summary>
+            property to read visa from csv and store it to private variable
+            </summary>
+        </member>
+        <member name="P:Final_project.WorkingHolidayPayRecord.YearToDate">
+            <summary>
+            property to read yearToDate from csv and store it to private variable
+            </summary>
+        </member>
+        <member name="P:Final_project.WorkingHolidayPayRecord.Tax">
+            <summary>
+            inherits from PayRecord, overrides abstract property Tax an calls appropriate method from TaxCalculator
+            </summary>
+        </member>
+        <member name="M:Final_project.WorkingHolidayPayRecord.#ctor(System.Int32,System.Double[],System.Double[],System.Int32,System.Int32)">
+            <summary>
+            constructor contains additional arguments _visa and _yearToDate
+            </summary>
+            <param name="id"></param>
+            <param name="hours"></param>
+            <param name="rates"></param>
+            <param name="visa"></param>
+            <param name="yearToDate"></param>
+        </member>
+        <member name="M:Final_project.WorkingHolidayPayRecord.GetDetails">
+            <summary>
+            method to write calculated amounts to console with visa details
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
